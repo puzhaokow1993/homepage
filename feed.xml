@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KOW Pu Zhao (邱普照)</title>
+    <description>PhD Student, Department of Mathematics, National Taiwan University (Office: ASMAB 556)
+</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 03 Jul 2020 14:03:05 +0800</pubDate>
+    <lastBuildDate>Fri, 03 Jul 2020 14:03:05 +0800</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Publications and Preprints</title>
+        <description>&lt;p&gt;(2020) (with Jenn-Nan Wang) &lt;a href=&quot;http://www.math.ntu.edu.tw/~jnwang/pub/resources/ver4_preprint_acoustic_factorization.pdf&quot;&gt;Reconstruction of an impenetrable obstacle in anisotropic inhomogeneous background&lt;/a&gt;, preprint.&lt;/p&gt;
+
+&lt;p&gt;(2020) (with Fioralba Cakoni and Jenn-Nan Wang) &lt;a href=&quot;http://www.math.ntu.edu.tw/~jnwang/pub/resources/Ca-ver10_ITEP.pdf&quot;&gt;The interior transmission eigenvalue problem for elastic waves in media with obstacles&lt;/a&gt;, preprint.&lt;/p&gt;
+
+&lt;p&gt;(2020) (with Jenn-Nan Wang), &lt;a href=&quot;http://www.math.ntu.edu.tw/~jnwang/pub/resources/Eigen_UCP.pdf&quot;&gt;Strict monotonicity of eigenvalues and unique continuation for spectral fractional elliptic operators&lt;/a&gt;. Unpublished manuscript.&lt;/p&gt;
+
+&lt;p&gt;(2019) (with Masato Kimura), The Lewy-Stampacchia Inequality for Fractional Laplacian and Its Application to Anomalous Unidirectional Diffusion Equations, &lt;a href=&quot;https://arxiv.org/pdf/1909.00588.pdf&quot;&gt;arXiv:1909.00588&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(2019) On Landis Conjecture for the Fractional Schrödinger Equation, &lt;a href=&quot;https://arxiv.org/pdf/1905.01885.pdf&quot;&gt;arXiv:1905.01885&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(2019) (with Ching-Lung Lin), &lt;a href=&quot;https://doi.org/10.1016/j.jde.2018.09.002&quot;&gt;On decay rate of solutions for the stationary Navier-Stokes equation in an exterior domain&lt;/a&gt;, J. Differential Equations, 266, 3279-3309&lt;/p&gt;
+</description>
+        <pubDate>Thu, 02 Jul 2020 00:00:00 +0800</pubDate>
+        <link>/information/2020/07/02/Publications.html</link>
+        <guid isPermaLink="true">/information/2020/07/02/Publications.html</guid>
+        
+        
+        <category>information</category>
+        
+      </item>
+    
+      <item>
+        <title>International Conferences &amp; Summer Schools Experiences</title>
+        <description>&lt;p&gt;&lt;u&gt;&lt;i&gt;International Conferences Attendance:&lt;/i&gt;&lt;/u&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;(2020) Student Organizer, &lt;a href=&quot;https://www.ms.u-tokyo.ac.jp/~yasuyuki/eacdfm2020.htm&quot;&gt;East Asian Core Doctoral Forum on Mathematics 2020&lt;/a&gt;, Kavli IPMU, Tokyo (2020.1.14 ~ 2020.1.17)&lt;/li&gt;
+  &lt;li&gt;(2019) &lt;a href=&quot;http://cas2019ipia.csp.escience.cn/dct/page/1&quot;&gt;The 5th East Asia Section of IPIA Young Scholars Symposium&lt;/a&gt;, Academy of Mathematics and Systems Science, Chinese Academy of Sciences, Beijing (2019.6.7 ~ 2019.6.8)&lt;/li&gt;
+  &lt;li&gt;(2018) East Asian Core Doctoral Forum on Mathematics 2018, Tsinghua University, Beijing (2018.1.12 ~ 2018.1.16)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;i&gt;Summer Schools:&lt;/i&gt;&lt;/u&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;(2019) Internship Program for Science &amp;amp; Engineering Students, Kanazawa University, Kanazawa (2019.8.5 ~ 2019.9.6)&lt;/li&gt;
+  &lt;li&gt;(2019) &lt;a href=&quot;http://www.eeci-igsc.eu/&quot;&gt;European Embedded Control Institute, International Graduate School on Control&lt;/a&gt;, Sichuan University, Chengdu (2019.7.7 ~ 2019.7.27)&lt;/li&gt;
+  &lt;li&gt;(2018) &lt;a href=&quot;http://137.132.243.14/events/2018/theo/vl.php&quot;&gt;2018 Tutorial on Calderon’s Problem, Visibility and Invisibility&lt;/a&gt;, National University of Singapore (2018.8.6 ~ 2018.8.17)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 02 Jul 2020 00:00:00 +0800</pubDate>
+        <link>/information/2020/07/02/Conferences.html</link>
+        <guid isPermaLink="true">/information/2020/07/02/Conferences.html</guid>
+        
+        
+        <category>information</category>
+        
+      </item>
+    
+      <item>
+        <title>Academic Awards</title>
+        <description>&lt;p&gt;(2017) Outstanding Master Thesis Silver Award, Taiwan Mathematical Society&lt;/p&gt;
+</description>
+        <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
+        <link>/information/2020/07/01/awards.html</link>
+        <guid isPermaLink="true">/information/2020/07/01/awards.html</guid>
+        
+        
+        <category>information</category>
+        
+      </item>
+    
+  </channel>
+</rss>
