@@ -1,2 +1,3 @@
 # homepage
-Homepage: KOW Pu Zhao (a.k.a. Pu-Zhao Kow, Puzhao Kow, 邱普照)
+Mathematics - KOW Pu Zhao (邱普照, Pu-Zhao Kow, Puzhao Kow)
+Department of Mathematics, National Taiwan University
