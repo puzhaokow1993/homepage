@@ -455,3 +455,13 @@ pre {
     color: #008080; }
   .highlight .il {
     color: #099; }
+
+/**
+ * Centered boxed
+ */
+.centerbox {
+  margin: auto;
+  width: 50%;
+  border: 1px solid gray;
+  padding: 10px;
+}
