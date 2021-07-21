@@ -1,0 +1,463 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Machine-Learning-based forecasting of COVID-19 outbreak in Taiwan</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="main_program.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Machine-Learning-based forecasting of COVID-19 outbreak in Taiwan</h1><!--introduction--><p>In real world, we only have the time series data of confirmed COVID-19 cases. The parameters are all unknown. This MATLAB&reg; script interpolate these parameters before predicting the COVID-19 infection, by minimizing a suitable objective quantity.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Authors</a></li><li><a href="#2">Data</a></li><li><a href="#3">Initialization</a></li><li><a href="#9">Interpolation using least squared</a></li><li><a href="#11">Output</a></li><li><a href="#18">Subroutines</a></li></ul></div><h2 id="1">Authors</h2><div><ul><li>Pu-Zhao Kow (Department of Mathematics, National Taiwan University, Email: <a href="mailto:d07221005@ntu.edu.tw">d07221005@ntu.edu.tw</a>)</li><li>Jenn-Nan Wang (Institute of Applied Mathematics, NCTS, National Taiwan University, Email: <a href="mailto:jnwang@math.ntu.edu.tw">jnwang@math.ntu.edu.tw</a>)</li></ul></div><p>This MATLAB&reg; script is written by the first author.</p><h2 id="2">Data</h2><p>We perform the interpolation using Taiwan COVID-19 data, starting from April 22, 2021. The data are open, which can be found in Taiwan CDC, via Commonwealth Magazine. The data is given in the CSV file <i><b>DATA.csv</b></i>. The following is the URL: <a href="https://web.cw.com.tw/covid-live-updates-2021/">https://web.cw.com.tw/covid-live-updates-2021/</a></p><h2 id="3">Initialization</h2><p>We first declare some global variables.</p><pre class="codeinput"><span class="keyword">global</span> data
+<span class="keyword">global</span> d
+<span class="keyword">global</span> a
+</pre><p>Now, we input data from <i><b>DATA.csv</b></i>.</p><pre class="codeinput">data = readmatrix(<span class="string">'DATA.csv'</span>);
+d = length(data);
+</pre><p>For convenience, we introduce an auxiliary parameter (fitting index), see subroutine <i><b>COVID19model</b></i> below.</p><pre class="codeinput">a = 0;
+</pre><p>Overwritting files (uncommented them when performing iterations). You can add a for-loop by yourself for multiple epoach.</p><pre class="language-matlab">close <span class="string">all</span>
+writematrix(readmatrix(<span class="string">'H_OUTPUT.csv'</span>), <span class="string">'H_GUESS.csv'</span>);
+writematrix(readmatrix(<span class="string">'I_OUTPUT.csv'</span>), <span class="string">'I_GUESS.csv'</span>);
+writematrix(readmatrix(<span class="string">'PARAM_OUTPUT.csv'</span>), <span class="string">'PARAM_GUESS.csv'</span>);
+</pre><p>To perform the least square, we need some initial guesses.</p><pre class="codeinput">HH = readmatrix(<span class="string">'H_GUESS.csv'</span>);
+II = readmatrix(<span class="string">'I_GUESS.csv'</span>);
+
+M = readmatrix(<span class="string">'PARAM_GUESS.csv'</span>);
+beta = M(1,:);
+gamma = M(2,:);
+delta = M(3,:);
+ell = M(4,:);
+clearvars <span class="string">M</span>
+x0 = [HH,II,beta,gamma,delta,ell];
+</pre><h2 id="9">Interpolation using least squared</h2><p>Find minimum of unconstrained multivariable function using derivative-free method.</p><pre class="codeinput">[xmin,~,~] = fminsearch(@objective, x0);
+</pre><pre class="codeoutput"> 
+Exiting: Maximum number of function evaluations has been exceeded
+         - increase MaxFunEvals option.
+         Current function value: 328.167282 
+
+</pre><p>Removing outliers (removing negative values)</p><pre class="codeinput"><span class="keyword">for</span> k = 1:length(x0)
+   <span class="keyword">if</span> xmin(k) &lt; 0
+       xmin(k) = 0;
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="11">Output</h2><p>Export <i><b>.csv</b></i> files</p><pre class="codeinput">[~,C] = COVID19model(xmin);
+HH_min = xmin(1:15);
+II_min = xmin(16:30);
+beta_min = xmin(31+0*d:30+1*d);
+gamma_min = xmin(31+1*d:30+2*d);
+delta_min = xmin(31+2*d:30+3*d);
+ell_min = xmin(31+3*d:30+4*d);
+writematrix(HH_min, <span class="string">'H_OUTPUT.csv'</span>);
+writematrix(II_min, <span class="string">'I_OUTPUT.csv'</span>);
+writematrix([beta_min;gamma_min;delta_min;ell_min],<span class="string">'PARAM_OUTPUT.csv'</span>);
+</pre><p>Figure 1: Culmulative confirmed cases in Taiwan</p><pre class="codeinput">time = datetime(2021,4,22) + caldays(0:d-1);
+time2 = [time(27:d), fliplr(time(27:d))];
+range250 = [(C(27:d)-250*ones(1,length(C(27:d)))), <span class="keyword">...</span>
+    fliplr(C(27:d)+250*ones(1,length(C(27:d))))];
+fill(time2, range250, [0.3010, 0.7450, 0.9330],<span class="string">'LineStyle'</span>,<span class="string">'none'</span>);
+hold <span class="string">on</span>
+range150 = [(C(27:d)-150*ones(1,length(C(27:d)))), <span class="keyword">...</span>
+    fliplr(C(27:d)+150*ones(1,length(C(27:d))))];
+fill(time2, range150, [0, 0.4470, 0.7410],<span class="string">'LineStyle'</span>,<span class="string">'none'</span>);
+hold <span class="string">on</span>
+range50 = [(C(27:d)-50*ones(1,length(C(27:d)))), <span class="keyword">...</span>
+    fliplr(C(27:d)+50*ones(1,length(C(27:d))))];
+fill(time2, range50, <span class="string">'black'</span>,<span class="string">'LineStyle'</span>,<span class="string">'none'</span>);
+hold <span class="string">on</span>
+plot(time(27:d),C(27:d),<span class="string">'Color'</span>,[0.3010, 0.7450, 0.9330],<span class="keyword">...</span>
+    <span class="string">'LineStyle'</span>,<span class="string">'--'</span>,<span class="string">'LineWidth'</span>,0.1);
+hold <span class="string">on</span>
+plot(time(27:d),data(27:d), <span class="keyword">...</span>
+  <span class="string">'LineStyle'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+  <span class="string">'Marker'</span>, <span class="string">'square'</span>, <span class="keyword">...</span>
+  <span class="string">'MarkerEdgeColor'</span>, <span class="string">'black'</span>,<span class="keyword">...</span>
+  <span class="string">'MarkerFaceColor'</span>, <span class="string">'white'</span>,<span class="keyword">...</span>
+  <span class="string">'MarkerSize'</span>, 5)
+ylabel(<span class="string">'number of people'</span>)
+ylim([0, 15000])
+legend(<span class="string">'Fitting curve \pm 250'</span>, <span class="keyword">...</span>
+    <span class="string">'Fitting curve \pm 150'</span>, <span class="keyword">...</span>
+    <span class="string">'Fitting curve \pm 50'</span>, <span class="keyword">...</span>
+    <span class="string">'Fitting curve'</span>,<span class="string">'data'</span>,<span class="string">'location'</span>,<span class="string">'southeast'</span>)
+hold <span class="string">off</span>
+set(gca,<span class="string">'FontSize'</span>,15)
+set(gcf, <span class="string">'units'</span>, <span class="string">'normalized'</span>, <span class="string">'outerposition'</span>, [0, 0, 1, 1])
+</pre><img vspace="5" hspace="5" src="main_program_01.png" alt=""> <p>Figure 2: Fitting error</p><pre class="codeinput">figure
+plot(time(27:d),abs(C(27:d)-data(27:d)),<span class="string">'Color'</span>,[0.8500,0.3250,0.0980], <span class="keyword">...</span>
+    <span class="string">'LineWidth'</span>, 3);
+ylabel(<span class="string">'absolute error (number of people)'</span>)
+set(gca,<span class="string">'FontSize'</span>,15)
+set(gcf, <span class="string">'units'</span>, <span class="string">'normalized'</span>, <span class="string">'outerposition'</span>, [0, 0, 1, 1])
+</pre><img vspace="5" hspace="5" src="main_program_02.png" alt=""> <p>Figure 3: parameters <img src="main_program_eq17331442575217596290.png" alt="$\beta$"> and <img src="main_program_eq08791264202177448659.png" alt="$\ell$"></p><pre class="codeinput">figure
+plot(time(27:d),beta_min(27:d),<span class="string">'LineStyle'</span>,<span class="string">'-'</span>,<span class="string">'LineWidth'</span>,3, <span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.6350,0.0780,0.1840])
+hold <span class="string">on</span>
+plot(time(27:d),ell_min(27:d),<span class="string">'LineStyle'</span>,<span class="string">'-'</span>,<span class="string">'LineWidth'</span>,3, <span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.4660,0.6740,0.1880])
+legend(<span class="string">'$\beta_{t}$ (infection rate)'</span>, <span class="keyword">...</span>
+    <span class="string">'$\ell_{t}$ (isolation rate)'</span>, <span class="keyword">...</span>
+    <span class="string">'location'</span>,<span class="string">'northeast'</span>,<span class="string">'interpreter'</span>,<span class="string">'latex'</span>)
+hold <span class="string">off</span>
+set(gca,<span class="string">'FontSize'</span>,15)
+set(gcf, <span class="string">'units'</span>, <span class="string">'normalized'</span>, <span class="string">'outerposition'</span>, [0, 0, 1, 1])
+</pre><img vspace="5" hspace="5" src="main_program_03.png" alt=""> <p>Figure 4: parameters <img src="main_program_eq17096441642737911057.png" alt="$\gamma$"> and <img src="main_program_eq06646721004341227832.png" alt="$\delta$"></p><pre class="codeinput">figure
+plot(time(27:d),gamma_min(27:d),<span class="string">'LineStyle'</span>,<span class="string">'-'</span>,<span class="string">'LineWidth'</span>,3, <span class="keyword">...</span>
+    <span class="string">'Color'</span>,<span class="string">'red'</span>)
+hold <span class="string">on</span>
+plot(time(27:d),delta_min(27:d),<span class="string">'LineStyle'</span>,<span class="string">'-'</span>,<span class="string">'Linewidth'</span>,3, <span class="keyword">...</span>
+    <span class="string">'Color'</span>,<span class="string">'blue'</span>)
+legend(<span class="string">'$\gamma_{t}$ (confirmation rate for symptomatic cases)'</span>, <span class="keyword">...</span>
+    <span class="string">'$\delta_{t}$ (confirmation rate for asymptomatic cases)'</span>, <span class="keyword">...</span>
+    <span class="string">'location'</span>,<span class="string">'northeast'</span>,<span class="string">'interpreter'</span>,<span class="string">'latex'</span>)
+hold <span class="string">off</span>
+set(gca,<span class="string">'FontSize'</span>,15)
+set(gcf, <span class="string">'units'</span>, <span class="string">'normalized'</span>, <span class="string">'outerposition'</span>, [0, 0, 1, 1])
+</pre><img vspace="5" hspace="5" src="main_program_04.png" alt=""> <p>Figure 5: <img src="main_program_eq17354617462179732091.png" alt="$H$"> and <img src="main_program_eq17419315245227113761.png" alt="$I$"> 15 days before the infection chain starts</p><pre class="codeinput">figure
+time_prev = datetime(2021,4,22) + caldays(-15:-1);
+plot(time_prev,HH,<span class="string">'LineStyle'</span>,<span class="string">'-'</span>,<span class="string">'LineWidth'</span>,3,<span class="string">'Color'</span>,<span class="string">'m'</span>)
+hold <span class="string">on</span>
+plot(time_prev,II,<span class="string">'LineStyle'</span>,<span class="string">'-'</span>,<span class="string">'LineWidth'</span>,3,<span class="string">'Color'</span>,<span class="string">'c'</span>)
+hold <span class="string">off</span>
+legend(<span class="string">'H_{t} (before infection chain starts)'</span>, <span class="keyword">...</span>
+    <span class="string">'I_{t} (before infection chain starts)'</span>, <span class="keyword">...</span>
+    <span class="string">'location'</span>,<span class="string">'northwest'</span>)
+set(gca,<span class="string">'FontSize'</span>,15)
+set(gcf, <span class="string">'units'</span>, <span class="string">'normalized'</span>, <span class="string">'outerposition'</span>, [0, 0, 1, 1])
+</pre><img vspace="5" hspace="5" src="main_program_05.png" alt=""> <p>Exporting CSV files for Machine Learning, ranging from May 18 to July 15</p><pre class="codeinput">writematrix(transpose([beta_min(27:d); <span class="keyword">...</span>
+    gamma_min(27:d); <span class="keyword">...</span>
+    delta_min(27:d); <span class="keyword">...</span>
+    ell_min(27:d)]),<span class="string">'output_machine_learning.csv'</span>);
+</pre><h2 id="18">Subroutines</h2><p>function <i><b>objective</b></i></p><pre class="language-matlab">
+<span class="keyword">function</span> error = objective(x)
+  [error,~] = COVID19model(x);
+<span class="keyword">end</span>
+
+</pre><p>function <i><b>p</b></i></p><pre class="language-matlab">
+<span class="keyword">function</span> y = p(t)
+  <span class="keyword">if</span> (t&gt;0) &amp;&amp; (t&lt;15)
+    y = (0.5977/t)*(exp(-(1.105*(log(t)) - 1.417)^2));
+  <span class="keyword">else</span>
+    y = 0;
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+</pre><p>function <i><b>COVID19model</b></i></p><pre class="language-matlab">
+<span class="keyword">function</span> [Error,Confirm] = COVID19model(x)
+  <span class="keyword">global</span> data
+  <span class="keyword">global</span> d
+  <span class="keyword">global</span> a
+  
+  <span class="comment">% declare variables (reserve memory)</span>
+  I = zeros(1,d+15);
+  C = zeros(1,d+15);
+  H = zeros(1,d+15);
+  Q = zeros(1,d+15);
+  S = zeros(1,d+15);
+  beta = zeros(1,d+15);
+  gamma = zeros(1,d+15);
+  delta = zeros(1,d+15);
+  ell = zeros(1,d+15);
+  error = 0;
+  
+  <span class="comment">% initialization</span>
+  H(1:15) = x(1:15);
+  I(1:15) = x(16:30);
+  beta(16:15+d) = x(31+0*d:30+1*d);
+  gamma(16:15+d) = x(31+1*d:30+2*d);
+  delta(16:15+d) = x(31+2*d:30+3*d);
+  ell(16:15+d) = x(31+3*d:30+4*d);
+  
+  <span class="comment">% main iteration</span>
+  <span class="keyword">for</span> t = 16:15+d
+    <span class="keyword">for</span> i = 1:14
+      S(t) = S(t) + (I(t-i)-I(t-i-1))*p(i); <span class="comment">% convolution</span>
+    <span class="keyword">end</span>
+    
+    I(t) = I(t-1) + beta(t)*H(t-1); <span class="comment">% equation #1</span>
+    <span class="keyword">if</span> I(t) &lt; I(t-1)
+      I(t) = I(t-1);
+    <span class="keyword">end</span>
+    
+    C(t) = C(t-1) + gamma(t)*S(t) + delta(t)*Q(t-1); <span class="comment">% equation #2</span>
+    <span class="keyword">if</span> C(t) &lt; C(t-1)
+      C(t) = C(t-1);
+    <span class="keyword">end</span>
+    
+    Q(t) = Q(t-1) + ell(t)*(I(t) - I(t-1)) - (C(t) - C(t-1)); <span class="comment">% equation #3</span>
+    <span class="keyword">if</span> Q(t) &lt; 0
+      Q(t) = 0;
+    <span class="keyword">end</span>
+    
+    H(t) = I(t) - C(t) - Q(t);
+    <span class="keyword">if</span> H(t) &lt; 0
+      H(t) = 0;
+    <span class="keyword">end</span>
+    
+    error = error + ((data(t-15) - C(t))^2)*(data(t-15)^a);
+    
+  <span class="keyword">end</span>
+  
+  <span class="comment">% output</span>
+  Confirm = C(16:15+d);
+  Error = sqrt(error);
+<span class="keyword">end</span>
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Machine-Learning-based forecasting of COVID-19 outbreak in Taiwan
+% In real world, we only have the time series data of confirmed COVID-19 
+% cases. The parameters are all unknown. 
+% This MATLAB(R) script interpolate these parameters before predicting the 
+% COVID-19 infection, by minimizing a suitable objective quantity. 
+%
+%% Authors
+%
+% * Pu-Zhao Kow (Department of Mathematics, National Taiwan 
+% University, Email: d07221005@ntu.edu.tw) 
+% * Jenn-Nan Wang (Institute of Applied Mathematics, NCTS, 
+% National Taiwan University, Email: jnwang@math.ntu.edu.tw)
+%
+% This MATLAB(R) script is written by the first author. 
+
+%% Data
+% We perform the interpolation using Taiwan COVID-19 data, starting from 
+% April 22, 2021. The data are open, which can be found in Taiwan CDC, via 
+% Commonwealth Magazine. The data is given in the CSV file _*DATA.csv*_. 
+% The following is the URL: https://web.cw.com.tw/covid-live-updates-2021/
+
+%% Initialization
+% We first declare some global variables. 
+global data
+global d
+global a
+
+%%
+% Now, we input data from _*DATA.csv*_.
+data = readmatrix('DATA.csv'); 
+d = length(data);
+
+%%
+% For convenience, we introduce an auxiliary parameter (fitting index), see
+% subroutine _*COVID19model*_ below. 
+a = 0; 
+
+%%
+% Overwritting files (uncommented them when performing iterations).
+% You can add a for-loop by yourself for multiple epoach. 
+%
+%%
+%
+%   close all
+%   writematrix(readmatrix('H_OUTPUT.csv'), 'H_GUESS.csv');
+%   writematrix(readmatrix('I_OUTPUT.csv'), 'I_GUESS.csv');
+%   writematrix(readmatrix('PARAM_OUTPUT.csv'), 'PARAM_GUESS.csv');
+
+%%
+% To perform the least square, we need some initial guesses. 
+HH = readmatrix('H_GUESS.csv');
+II = readmatrix('I_GUESS.csv');
+
+M = readmatrix('PARAM_GUESS.csv'); 
+beta = M(1,:);
+gamma = M(2,:);
+delta = M(3,:);
+ell = M(4,:);
+clearvars M
+x0 = [HH,II,beta,gamma,delta,ell];
+
+%% Interpolation using least squared
+% Find minimum of unconstrained multivariable function using 
+% derivative-free method. 
+[xmin,~,~] = fminsearch(@objective, x0);
+
+%%
+% Removing outliers (removing negative values)
+for k = 1:length(x0)
+   if xmin(k) < 0
+       xmin(k) = 0;
+   end
+end
+
+%% Output
+% Export _*.csv*_ files
+[~,C] = COVID19model(xmin);
+HH_min = xmin(1:15);
+II_min = xmin(16:30);
+beta_min = xmin(31+0*d:30+1*d);
+gamma_min = xmin(31+1*d:30+2*d);
+delta_min = xmin(31+2*d:30+3*d);
+ell_min = xmin(31+3*d:30+4*d);
+writematrix(HH_min, 'H_OUTPUT.csv');
+writematrix(II_min, 'I_OUTPUT.csv');
+writematrix([beta_min;gamma_min;delta_min;ell_min],'PARAM_OUTPUT.csv');
+
+%%
+% Figure 1: Culmulative confirmed cases in Taiwan
+time = datetime(2021,4,22) + caldays(0:d-1);
+time2 = [time(27:d), fliplr(time(27:d))];
+range250 = [(C(27:d)-250*ones(1,length(C(27:d)))), ...
+    fliplr(C(27:d)+250*ones(1,length(C(27:d))))];
+fill(time2, range250, [0.3010, 0.7450, 0.9330],'LineStyle','none');
+hold on
+range150 = [(C(27:d)-150*ones(1,length(C(27:d)))), ...
+    fliplr(C(27:d)+150*ones(1,length(C(27:d))))];
+fill(time2, range150, [0, 0.4470, 0.7410],'LineStyle','none');
+hold on
+range50 = [(C(27:d)-50*ones(1,length(C(27:d)))), ...
+    fliplr(C(27:d)+50*ones(1,length(C(27:d))))];
+fill(time2, range50, 'black','LineStyle','none');
+hold on
+plot(time(27:d),C(27:d),'Color',[0.3010, 0.7450, 0.9330],...
+    'LineStyle','REPLACE_WITH_DASH_DASH','LineWidth',0.1);
+hold on
+plot(time(27:d),data(27:d), ...
+  'LineStyle', 'none', ... 
+  'Marker', 'square', ... 
+  'MarkerEdgeColor', 'black',...
+  'MarkerFaceColor', 'white',...
+  'MarkerSize', 5)
+ylabel('number of people')
+ylim([0, 15000])
+legend('Fitting curve \pm 250', ...
+    'Fitting curve \pm 150', ...
+    'Fitting curve \pm 50', ...
+    'Fitting curve','data','location','southeast')
+hold off
+set(gca,'FontSize',15)
+set(gcf, 'units', 'normalized', 'outerposition', [0, 0, 1, 1])
+
+%%
+% Figure 2: Fitting error
+figure
+plot(time(27:d),abs(C(27:d)-data(27:d)),'Color',[0.8500,0.3250,0.0980], ...
+    'LineWidth', 3);
+ylabel('absolute error (number of people)')
+set(gca,'FontSize',15)
+set(gcf, 'units', 'normalized', 'outerposition', [0, 0, 1, 1])
+
+%%
+% Figure 3: parameters $\beta$ and $\ell$
+figure
+plot(time(27:d),beta_min(27:d),'LineStyle','-','LineWidth',3, ...
+    'Color',[0.6350,0.0780,0.1840])
+hold on
+plot(time(27:d),ell_min(27:d),'LineStyle','-','LineWidth',3, ...
+    'Color',[0.4660,0.6740,0.1880])
+legend('$\beta_{t}$ (infection rate)', ...
+    '$\ell_{t}$ (isolation rate)', ...
+    'location','northeast','interpreter','latex')
+hold off
+set(gca,'FontSize',15)
+set(gcf, 'units', 'normalized', 'outerposition', [0, 0, 1, 1])
+
+%%
+% Figure 4: parameters $\gamma$ and $\delta$
+figure
+plot(time(27:d),gamma_min(27:d),'LineStyle','-','LineWidth',3, ...
+    'Color','red')
+hold on
+plot(time(27:d),delta_min(27:d),'LineStyle','-','Linewidth',3, ...
+    'Color','blue')
+legend('$\gamma_{t}$ (confirmation rate for symptomatic cases)', ...
+    '$\delta_{t}$ (confirmation rate for asymptomatic cases)', ...
+    'location','northeast','interpreter','latex')
+hold off
+set(gca,'FontSize',15)
+set(gcf, 'units', 'normalized', 'outerposition', [0, 0, 1, 1])
+
+%%
+% Figure 5: $H$ and $I$ 15 days before the infection chain starts
+figure
+time_prev = datetime(2021,4,22) + caldays(-15:-1);
+plot(time_prev,HH,'LineStyle','-','LineWidth',3,'Color','m')
+hold on
+plot(time_prev,II,'LineStyle','-','LineWidth',3,'Color','c')
+hold off
+legend('H_{t} (before infection chain starts)', ...
+    'I_{t} (before infection chain starts)', ...
+    'location','northwest')
+set(gca,'FontSize',15)
+set(gcf, 'units', 'normalized', 'outerposition', [0, 0, 1, 1])
+
+%%
+% Exporting CSV files for Machine Learning, ranging from May 18 to July 15
+writematrix(transpose([beta_min(27:d); ...
+    gamma_min(27:d); ...
+    delta_min(27:d); ...
+    ell_min(27:d)]),'output_machine_learning.csv');
+
+%% Subroutines
+%
+% function _*objective*_
+%
+% <include>objective.m</include>
+
+%%
+% function _*p*_
+%
+% <include>p.m</include>
+
+%% 
+% function _*COVID19model*_
+% 
+% <include>COVID19model.m</include>
+##### SOURCE END #####
+--></body></html>
