@@ -50,7 +50,7 @@ figcaption {
  * Lists
  */
 ul, ol {
-  margin-left: 30px; }
+  margin-left: 0px; }
 
 li > ul,
 li > ol {
@@ -66,10 +66,10 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #2a7ae2;
+  color: #d83131;
   text-decoration: none; }
   a:visited {
-    color: #1756a9; }
+    color: #800000; }
   a:hover {
     color: #111;
     text-decoration: underline; }
@@ -112,16 +112,16 @@ pre {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
+  max-width: -webkit-calc(90% - (30px * 2));
+  max-width: calc(90% - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px; }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 90%) {
     .wrapper {
-      max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
+      max-width: -webkit-calc(90% - (30px));
+      max-width: calc(90% - (30px));
       padding-right: 15px;
       padding-left: 15px; } }
 
@@ -235,18 +235,21 @@ pre {
   padding-left: 15px; }
 
 .footer-col-1 {
-  width: -webkit-calc(35% - (30px / 2));
-  width: calc(35% - (30px / 2)); }
+  text-align: left;
+  width: -webkit-calc(30% - (30px / 2));
+  width: calc(30% - (30px / 2)); }
 
 .footer-col-2 {
-  width: -webkit-calc(20% - (30px / 2));
-  width: calc(20% - (30px / 2)); }
+  text-align: center;
+  width: -webkit-calc(40% - (30px / 2));
+  width: calc(40% - (30px / 2)); }
 
 .footer-col-3 {
-  width: -webkit-calc(45% - (30px / 2));
-  width: calc(45% - (30px / 2)); }
+  text-align: right;
+  width: -webkit-calc(30% - (30px / 2));
+  width: calc(30% - (30px / 2)); }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 90%) {
   .footer-col-1,
   .footer-col-2 {
     width: -webkit-calc(50% - (30px / 2));
@@ -255,7 +258,7 @@ pre {
   .footer-col-3 {
     width: -webkit-calc(100% - (30px / 2));
     width: calc(100% - (30px / 2)); } }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 90%) {
   .footer-col {
     float: none;
     width: -webkit-calc(100% - (30px / 2));
@@ -460,8 +463,10 @@ pre {
  * Centered boxed
  */
 .centerbox {
+  text-align: center;
   margin: auto;
-  width: 50%;
-  border: 1px solid gray;
-  padding: 10px;
+  width: 40%;
+  border-style: double none double none;
+  border-color: #b22222;
+  padding: 0px;
 }
