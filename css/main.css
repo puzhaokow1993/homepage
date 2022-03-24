@@ -273,6 +273,7 @@ pre {
   font-size: 20px; }
 
 .post-list {
+  text-align: center;
   margin-left: 0;
   list-style: none; }
   .post-list > li {
