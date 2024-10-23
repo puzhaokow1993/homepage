@@ -14,6 +14,29 @@
   <link rel="canonical" href="../../../teaching/courses_pages">
   <link rel="alternate" type="application/rss+xml" title="KOW Pu Zhao (邱普照)" href="../feed.xml">
   
+    <!-- The following script is borrowed from https://www-an.acs.i.kyoto-u.ac.jp/tj2022/ -->
+  <script type="text/javascript">
+    <!--
+      if(document.getElementById){
+	document.writeln('<style type="text/css" media="all">');
+	document.writeln('<!--');
+	document.writeln('.showhide{display:none;}');
+	document.writeln('-->');
+	document.writeln('</style>');
+      }
+
+      function showHide(id){
+	var disp = document.getElementById(id).style.display;
+
+	if(disp == "block"){
+		document.getElementById(id).style.display = "none";
+	}else{
+		document.getElementById(id).style.display = "block";
+	}
+	return false;
+      }
+    </script>
+  
   <style>
   table {
     border-collapse: collapse; 
@@ -63,7 +86,7 @@
 
   <header class="post-header">
     <h2 class="post-title" itemprop="name headline">Differential Equations 1 (751873001) 微分方程式 （一）</h2>
-    <p class="post-meta"><time datetime="2024-10-17T22:53:00+08:00" itemprop="datePublished">Oct 17, 2024</time></p>
+    <p class="post-meta"><time datetime="2024-10-23T17:00:00+08:00" itemprop="datePublished">Oct 23, 2024</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -121,7 +144,14 @@
   <tr> <td>10.10.2024 13:10-16:00</td> <td>志希070116</td> <td>Week 5 - No class (Public holiday) [Return <a href="HW2_ODE.pdf" target="_blank">Homework 2</a> by October 10, 2024 (Thursday) 23:59]</td> </tr>
   <tr> <td>17.10.2024 13:10-16:00</td> <td>志希070116</td> <td>Week 6 - Lecture (Thursday): First order quasilinear PDE, homogeneous linear ODE with constant coefficients</td> </tr>
   <tr> <td>24.10.2024 13:10-16:00</td> <td>志希070116</td> <td>Week 7 - Lecture (Thursday)</td> </tr>
-  <tr> <td>31.10.2024 13:10-16:00</td> <td>志希070116</td> <td>Week 8 - Lecture (Thursday) [Return <a href="HW3_ODE.pdf" target="_blank">Homework 3</a> by October 31, 2024 (Thursday) 23:59]</td> </tr>
+  <tr> <td>31.10.2024 13:10-16:00</td> <td>志希070116</td> <td>Week 8 - Lecture (Thursday) [Return <a href="HW3_ODE.pdf" target="_blank">Homework 3</a> by October 31, 2024 (Thursday) 23:59] <br>[<a href="javascript:void(0);" onclick="showHide('talk_31_10_2024');"><u>title and abstract of today's talk (50 minutes)</u></a>]
+  <div class="col-mod-8 col-md-offset-2 showhide" id="talk_31_10_2024">
+<div style="padding: 10px; margin-left: 36px;margin-bottom: 10px; border: 1px dotted #333333;">
+<b>Speaker.</b> Po-Yi Lin </br>
+<b>Title.</b> Theory of Transformer</br>
+<b>Abstract:</b> The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.0 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature.</br>
+</div></div>
+  </td> </tr>
   </table>
   
   <h3><span id="Completion">Completion</span></h3>
