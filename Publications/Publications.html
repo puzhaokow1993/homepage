@@ -39,7 +39,7 @@
 
   <!-- ===== Topic labels & filter: styles ===== -->
   <style type="text/css">
-    .tag-filter { margin: 16px 0 20px; padding: 12px 14px; border: 1px dotted #333333; }
+    .tag-filter { box-sizing: border-box; width: 90%; margin: 16px 5% 20px; padding: 12px 14px; border: 1px dotted #333333; }
     .tag-filter-title { font-weight: bold; margin-bottom: 8px; }
     .tag-filter-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
     .tag-btn {
@@ -53,7 +53,7 @@
     .tag-btn .count { opacity: 0.75; margin-left: 3px; }
     .tag-filter-status { margin-top: 8px; font-size: 0.85em; color: #666; }
     .tag-filter-status a { cursor: pointer; }
-    .pub-tags { margin-left: 6px; }
+    .pub-tags { display: block; margin: 4px 0 1em; }
     .pub-tag {
       display: inline-block; font-size: 0.72em; line-height: 1.5;
       padding: 0 7px; margin: 0 3px 2px 0; border-radius: 9px;
@@ -483,13 +483,7 @@ PhD thesis, National Taiwan University, College of Science, Department of Mathem
       b.onclick = function () { toggle(k); };
       box.appendChild(b);
     });
-    var title = li.querySelector("i");
-    if (title) {
-      title.insertAdjacentElement("afterend", box);
-    } else {
-      var info = li.querySelector('a[onclick^="showHide"]');
-      if (info) { li.insertBefore(box, info.previousSibling || info); } else { li.appendChild(box); }
-    }
+    li.appendChild(box);
   });
 
   // 2. Build the filter buttons (with counts)
